@@ -30,6 +30,11 @@ async function completeFlow(page) {
   await page.getByText('Preferred · not reserved').waitFor()
 }
 
+async function assertValue(locator, expected, message) {
+  const actual = await locator.inputValue()
+  if (actual !== expected) throw new Error(`${message} Expected "${expected}", got "${actual}".`)
+}
+
 async function assertReviewEditPreservesAnswers(page) {
   await page.getByRole('button', { name: 'Edit' }).first().click()
   const issueChoice = page.getByRole('button', { name: 'Leaking fixture or pipe' })
@@ -39,16 +44,24 @@ async function assertReviewEditPreservesAnswers(page) {
   const kitchen = page.getByRole('button', { name: 'Kitchen' })
   if (!(await kitchen.evaluate((el) => el.classList.contains('chip--selected')))) throw new Error('Site area was not preserved after review edit.')
   await page.getByLabel('2 demo photos attached').waitFor()
-  await page.getByDisplayValue('Slow drip under the kitchen sink, noticed this morning.').waitFor()
+  await assertValue(
+    page.getByPlaceholder('Example: Slow drip under the kitchen sink, noticed this morning.'),
+    'Slow drip under the kitchen sink, noticed this morning.',
+    'Issue note was not preserved after review edit.',
+  )
   await page.getByRole('button', { name: 'Continue' }).click()
 
   const windowChoice = page.getByRole('button', { name: /This week/ })
   if ((await windowChoice.getAttribute('aria-pressed')) !== 'true') throw new Error('Access Window was not preserved after review edit.')
-  await page.getByDisplayValue('Before noon is best.').waitFor()
+  await assertValue(
+    page.getByPlaceholder('Example: Before noon is best.'),
+    'Before noon is best.',
+    'Timing note was not preserved after review edit.',
+  )
   await page.getByRole('button', { name: 'Continue' }).click()
 
-  await page.getByDisplayValue('Jamie Lee').waitFor()
-  await page.getByDisplayValue('(415) 555-0198').waitFor()
+  await assertValue(page.getByPlaceholder('Jamie Lee'), 'Jamie Lee', 'Name was not preserved after review edit.')
+  await assertValue(page.getByPlaceholder('(415) 555-0198'), '(415) 555-0198', 'Phone was not preserved after review edit.')
   await page.getByRole('button', { name: 'Review request' }).click()
   await page.getByText('Sending this creates a request, not an appointment.').waitFor()
 }
