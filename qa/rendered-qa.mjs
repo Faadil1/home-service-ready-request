@@ -38,7 +38,7 @@ async function assertReviewEditPreservesAnswers(page) {
 
   const kitchen = page.getByRole('button', { name: 'Kitchen' })
   if (!(await kitchen.evaluate((el) => el.classList.contains('chip--selected')))) throw new Error('Site area was not preserved after review edit.')
-  await page.getByText('2 demo photos').waitFor()
+  await page.getByLabel('2 demo photos attached').waitFor()
   await page.getByDisplayValue('Slow drip under the kitchen sink, noticed this morning.').waitFor()
   await page.getByRole('button', { name: 'Continue' }).click()
 
