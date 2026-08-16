@@ -1,0 +1,38 @@
+name: Gate 7 Generate Lock
+
+on:
+  push:
+    branches: [build/blue-carbon-margin-tabs]
+    paths:
+      - .github/workflows/generate-lock.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate-lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate package lock only
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+
+      - name: Verify lock metadata
+        run: |
+          node -e "const p=require('./package-lock.json'); if(p.lockfileVersion!==3) process.exit(1); console.log('lockfileVersion',p.lockfileVersion)"
+
+      - name: Upload package lock
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-7-package-lock
+          path: package-lock.json
+          if-no-files-found: error
