@@ -26,71 +26,84 @@ Last synchronized: 2026-08-16
 - Access Window is a preference, not provider inventory.
 - No diagnosis, binding quote, emergency dispatch, automatic technician assignment, or guaranteed response time.
 - Immediate hazards exit the ordinary request flow.
-- The primary promise must be experienceable without a contractor dashboard.
+- The primary promise is experienceable without a contractor dashboard.
 
-## Implemented evaluator path
+## Evaluator path
 `missed contact → issue → Site Context → Access Window → contact → review → Request received → service-ready brief`
 
 The brief exposes what is still to confirm: exact scope, provider availability, appointment timing, and price/quote where applicable.
 
-## Gate 6 validated build — PASS
-- Validated source/build HEAD: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
-- CI run: `31939110878` — **PASS**
+## Gate 6 — PASS
+- Validated product/source HEAD: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
+- CI run: `31939110878` — PASS
 - Rendered QA artifact: `9261523786`
-- Artifact digest: `sha256:16b0eb57728617524796441e0e11779c74a3b17c370f6a2dec00d7fc9dcb16c7`
-- Security audit: **PASS — 0 vulnerabilities**
+- Digest: `sha256:16b0eb57728617524796441e0e11779c74a3b17c370f6a2dec00d7fc9dcb16c7`
+- Security audit: PASS — 0 vulnerabilities
 - Vite: `8.2.0`
-- Hazard exit, Review Edit preservation, desktop/mobile, reduced motion: **PASS**
+- Hazard exit, Review Edit preservation, desktop/mobile and reduced motion: PASS
 
-## Gate 6.5 live Evaluation Capture — PASS
+## Gate 6.5 — PASS
 
-### Deployment identity
+### Live artifact identity
 - Canonical URL: `https://home-service-ready-request.vercel.app`
 - Vercel project: `prj_KyhYn470J5RZo8ENLPKxyhWpBfdF`
 - Vercel deployment: `dpl_3Twe4RDNYuPZcg65RFgwM4fjNqfo`
-- Deployment state: **READY**
-- Deployment method: manual Vercel connector upload of the exact source files from validated source HEAD `8d81a9e3396de5823c64cf7d5c3df41840240c3e`; Git-linked auto-deploy is **not** assumed.
-- Gate 6 CI JS asset: `/assets/index-DsBP0ZMz.js`
-- Gate 6 CI CSS asset: `/assets/index-dI3W3B_H.css`
-- Live JS asset: `/assets/index-DsBP0ZMz.js`
-- Live CSS asset: `/assets/index-dI3W3B_H.css`
-- Live artifact identity: **PASS — exact asset names match the Gate 6 build**
+- Deployment state: READY
+- Deployment method: manual Vercel connector upload from exact validated source HEAD `8d81a9e3396de5823c64cf7d5c3df41840240c3e`; Git-linked auto-deploy is not assumed.
+- Expected/live JS: `/assets/index-DsBP0ZMz.js`
+- Expected/live CSS: `/assets/index-dI3W3B_H.css`
+- Identity verdict: PASS
 
 ### Live evaluator proof
-- Workflow: `Gate 6.5 Live Evaluation`
-- Workflow run: `31939929008` — **PASS**
-- Evaluated URL: `https://home-service-ready-request.vercel.app`
+- Workflow run: `31939929008` — PASS
 - Evidence artifact: `9261739069`
-- Evidence digest: `sha256:aa62e7bf9f8d83c0e6e240ccd431975acd5babe708f89f56790e596a113f3397`
-- Evaluated source identity: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
+- Digest: `sha256:aa62e7bf9f8d83c0e6e240ccd431975acd5babe708f89f56790e596a113f3397`
+- Full evaluator path, request-not-booking, preference-not-inventory, hazard boundary, `STILL TO CONFIRM`, mobile and reduced motion: PASS
 
-Live assertions passed:
-- live JS/CSS artifact identity
-- missed-contact → service-ready-brief evaluator path
-- `Request received` remains explicitly **not a booking**
-- Access Window remains **preference only / not reserved**
-- immediate-hazard boundary remains outside the ordinary flow
-- `STILL TO CONFIRM` exposes provider availability, appointment timing, scope and price/quote
-- misleading positive claims such as booking confirmed / appointment confirmed / technician assigned / guaranteed response are absent
-- mobile 390×844
-- reduced-motion state
+## Gate 6.75 — PASS
 
-Live evidence includes desktop and mobile frames for entry, Site Context, Access Window, Review, Request Received and Service-Ready Brief, plus the mobile hazard boundary, reduced-motion capture, JSON report and a recorded production evaluator path.
+### Demo narrative
+- Narrative: `docs/DEMO_NARRATIVE_001.md`
+- Audit: `docs/DEMO_AUDIT_001.md`
+- Proof rule: validated live product for product moments; presentation cards may frame but may not strengthen claims.
+
+### Final live evidence film
+- Workflow: `Gate 6.75 Demo Evidence Film`
+- Final run: `31950856489` — PASS
+- Workflow source head: `49c307d79473d5eb88c0f396516873c2f27ff408`
+- Evidence artifact: `9264610424`
+- Digest: `sha256:ae2d054377206f4aa454024d2a66681fff05a6e95f0e6bf45ed6db6b27cfd5af`
+- Film: `home-service-ready-request-evidence-film.webm`
+- Duration: **56.88 seconds**
+- Live asset identity: PASS
+- Claim audit: PASS
+- `This is not a booking`: visible
+- Access Window `Preference only · not reserved`: visible
+- `STILL TO CONFIRM`: visible
+- prohibited positive claims: absent
+- presentation strengthened claims: no
+
+The earlier successful evidence run `31950646318` produced a 63.00-second film. It is superseded only because it exceeded the 55–60 second target. The final run changed capture timing only; the validated product source remained unchanged.
+
+## Product identity versus evidence/documentation HEAD
+
+The frozen user-visible product identity remains `8d81a9e3396de5823c64cf7d5c3df41840240c3e`. Commits after that point add QA, live-evidence automation, narrative/audit documents and canonical state; they do not imply a new product artifact.
 
 ## Current TRACE position
-- Gates 0 through 4.25: PASS / frozen before implementation.
-- Gate 6 QA / Polish: **PASS**.
-- Gate 6.5 Evaluation Capture: **PASS**.
-- Current: **Gate 6.75 — Demo Narrative / Evidence Film**.
-- PR #1 remains draft and must not be merged before Freeze/Promotion.
+- Gates 0 → 4.25: PASS / frozen before implementation.
+- Gate 6: PASS.
+- Gate 6.5: PASS.
+- Gate 6.75: PASS.
+- Current: **Gate 7 — Freeze / Promotion preparation**.
+- PR #1 remains draft and unmerged.
 
-## Known future freeze work
-- Commit a reproducible dependency lock and use `npm ci` before Gate 7 Freeze.
-- Preserve exact live/source/build identity through promotion.
-- Verify production again after later promotion.
+## Gate 7 prerequisites still open
+- Commit a reproducible dependency lock.
+- Convert CI dependency installation to `npm ci`.
+- Re-run CI on the reproducible dependency graph.
+- Verify no product-source drift from `8d81a9e...`.
+- Recheck the canonical live URL before promotion decision.
+- Only after Freeze PASS: explicit PROMOTE or HOLD decision.
 
 ## Next required work
-1. Build the Gate 6.75 evidence narrative using the validated live product only for proof moments.
-2. Keep claims within the live product boundaries.
-3. Produce evaluator-facing evidence film/capture and run claim audit.
-4. Keep PR #1 draft until Gate 7 Freeze/Promotion decision.
+Execute Gate 7 reproducibility hardening and freeze audit. Do not merge PR #1 before Gate 7 reaches `FREEZE_PASS_AWAITING_PROMOTION`.
