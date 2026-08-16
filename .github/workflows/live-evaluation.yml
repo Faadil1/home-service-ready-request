@@ -1,0 +1,43 @@
+name: Gate 6.5 Live Evaluation
+
+on:
+  push:
+    branches: [build/blue-carbon-margin-tabs]
+    paths:
+      - qa/live-evaluation.mjs
+      - .github/workflows/live-evaluation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-evaluation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      QA_URL: https://home-service-ready-request.vercel.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright runtime
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+
+      - name: Evaluate production artifact
+        run: node qa/live-evaluation.mjs
+
+      - name: Upload live evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-6-5-live-evaluation
+          path: live-evaluation-artifacts/
+          if-no-files-found: warn
