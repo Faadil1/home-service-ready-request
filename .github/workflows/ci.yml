@@ -18,9 +18,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install locked dependencies
+        run: npm ci
 
       - name: Security audit
         run: npm audit --audit-level=high
@@ -39,9 +40,9 @@ jobs:
           cat /tmp/preview.log
           exit 1
 
-      - name: Install Playwright QA runtime
+      - name: Install pinned Playwright QA runtime
         run: |
-          npm install --no-save --package-lock=false playwright
+          npm install --no-save --package-lock=false playwright@1.55.0
           npx playwright install --with-deps chromium
 
       - name: Rendered QA
