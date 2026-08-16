@@ -23,7 +23,7 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
-      - name: Security audit
+      - name: Security audit — locked project graph
         run: npm audit --audit-level=high
 
       - name: Build
@@ -42,8 +42,11 @@ jobs:
 
       - name: Install pinned Playwright QA runtime
         run: |
-          npm install --no-save --package-lock=false playwright@1.55.0
+          npm install --no-save --package-lock=false playwright@1.60.0
           npx playwright install --with-deps chromium
+
+      - name: Security audit — including QA runtime
+        run: npm audit --audit-level=high
 
       - name: Rendered QA
         run: node qa/rendered-qa.mjs
