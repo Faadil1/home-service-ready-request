@@ -82,7 +82,7 @@ try {
   await page.getByText('This does not book an appointment.').waitFor()
   await page.screenshot({ path: `${out}/01-entry.png`, fullPage: true })
   await assertNoProhibitedClaims(page, 'entry')
-  await hold(page, 5500)
+  await hold(page, 4500)
 
   await page.getByRole('button', { name: 'Start service request' }).click()
   await page.getByRole('button', { name: 'Leaking fixture or pipe' }).click()
@@ -93,7 +93,7 @@ try {
   await page.getByPlaceholder('Example: Weekday mornings are easiest.').fill('Weekday mornings are easiest.')
   await page.screenshot({ path: `${out}/02-site-context.png`, fullPage: true })
   await assertNoProhibitedClaims(page, 'site context')
-  await hold(page, 8500)
+  await hold(page, 7500)
 
   await page.getByRole('button', { name: 'Continue' }).click()
   await page.getByText('This is not live availability and does not reserve a time.').waitFor()
@@ -102,7 +102,7 @@ try {
   await page.getByText('Preference only · not reserved').first().waitFor()
   await page.screenshot({ path: `${out}/03-access-window.png`, fullPage: true })
   await assertNoProhibitedClaims(page, 'access window')
-  await hold(page, 7000)
+  await hold(page, 6000)
 
   await page.getByRole('button', { name: 'Continue' }).click()
   await page.getByPlaceholder('Jamie Lee').fill('Jamie Lee')
@@ -112,7 +112,7 @@ try {
   await page.getByText('Preferred · not reserved').waitFor()
   await page.screenshot({ path: `${out}/04-review.png`, fullPage: true })
   await assertNoProhibitedClaims(page, 'review')
-  await hold(page, 8000)
+  await hold(page, 7000)
 
   await page.getByRole('button', { name: 'Confirm & send request' }).click()
   await page.getByText('REQUEST RECEIVED').first().waitFor()
@@ -120,7 +120,7 @@ try {
   await page.getByText('No time has been reserved yet.').waitFor()
   await page.screenshot({ path: `${out}/05-request-received.png`, fullPage: true })
   await assertNoProhibitedClaims(page, 'request received')
-  await hold(page, 8000)
+  await hold(page, 7000)
 
   await page.getByRole('button', { name: 'View service-ready brief' }).click()
   await page.getByText('STILL TO CONFIRM').waitFor()
@@ -130,7 +130,7 @@ try {
   await page.getByText('Preference only · not reserved').waitFor()
   await page.screenshot({ path: `${out}/06-service-ready-brief.png`, fullPage: true })
   await assertNoProhibitedClaims(page, 'service-ready brief')
-  await hold(page, 8500)
+  await hold(page, 7500)
 
   await titleCard(
     page,
@@ -148,16 +148,7 @@ try {
     validatedSourceHead: '8d81a9e3396de5823c64cf7d5c3df41840240c3e',
     expectedAssets,
     observedIdentity,
-    timelineSeconds: {
-      opening: '0-4',
-      entry: '4-10',
-      siteContext: '10-21',
-      accessWindow: '21-29',
-      review: '29-38',
-      requestReceived: '38-47',
-      serviceReadyBrief: '47-56',
-      closing: '56-60',
-    },
+    targetDurationSeconds: '55-60',
     claimAudit: {
       liveAssetIdentity: 'PASS',
       openingClaimSupported: 'PASS',
