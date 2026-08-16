@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   generate-lock:
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: build/blue-carbon-margin-tabs
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -29,6 +31,18 @@ jobs:
       - name: Verify lock metadata
         run: |
           node -e "const p=require('./package-lock.json'); if(p.lockfileVersion!==3) process.exit(1); console.log('lockfileVersion',p.lockfileVersion)"
+
+      - name: Commit package lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if git diff --cached --quiet; then
+            echo "package-lock.json already current"
+          else
+            git commit -m "Lock dependencies for Gate 7 reproducibility"
+            git push origin HEAD:build/blue-carbon-margin-tabs
+          fi
 
       - name: Upload package lock
         uses: actions/upload-artifact@v4
