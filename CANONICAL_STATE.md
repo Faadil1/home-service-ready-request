@@ -32,25 +32,46 @@ Last synchronized: 2026-08-16
 
 The brief exposes what is still to confirm: exact scope, provider availability, appointment timing, and price/quote where applicable.
 
-## Validated build
-- Product/build commit validated by initial CI: `8e31a96cf7eeaf0da3115aad960c6740520d20b6`
-- CI run: `31938654286` — PASS
-- Rendered QA artifact: `9261395821`
+## Gate 6 validated build
+- Gate 6 candidate/build HEAD: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
+- CI run: `31939110878` — **PASS**
+- Rendered QA artifact: `9261523786`
+- Artifact digest: `sha256:16b0eb57728617524796441e0e11779c74a3b17c370f6a2dec00d7fc9dcb16c7`
+- Security audit: **PASS — 0 vulnerabilities**
+- Vite: `8.2.0`
 - Build: PASS
-- Desktop rendered flow: PASS
-- Mobile 390×844 rendered flow: PASS
+- Desktop review / review-after-edit / received / brief: PASS
+- Mobile 390×844 review / received: PASS
+- Immediate-hazard exit: PASS
+- Review Edit Return with answer preservation: PASS
 - Reduced-motion capture: PASS
 
-This file is documentation added after the validated build, so the branch HEAD advances beyond the validated product commit without changing `src/`.
+Rendered evidence files:
+- `mobile-hazard-exit.png`
+- `desktop-review.png`
+- `desktop-review-after-edit.png`
+- `desktop-received.png`
+- `desktop-brief.png`
+- `mobile-review.png`
+- `mobile-received.png`
+- `mobile-reduced-motion.png`
+
+The Gate 6 artifact was visually reviewed after automated assertions. Margin Tabs remain readable at 390×844, desktop stays a centered consumer sheet, the hazard boundary is clear, and the Handoff Imprint does not overpower the `This is not a booking` truth boundary.
+
+This canonical handoff is documentation added after the validated build, so the branch HEAD advances beyond the Gate 6 candidate without implying a different product artifact.
 
 ## Current TRACE position
 - Design Gates 0 through 4.25: PASS/frozen before implementation.
-- Gate 6 QA: IN PROGRESS.
-- PR #1 must remain draft until rendered QA/evaluator review is closed.
-- Do not merge without an explicit Freeze/Promotion decision.
+- Gate 6 QA / Polish: **PASS**.
+- Next: **Gate 6.5 — Evaluation Capture / live artifact identity**.
+- PR #1 remains draft and must not be merged before Freeze/Promotion.
+
+## Known future freeze work
+- Commit a reproducible dependency lock and use `npm ci` before Gate 7 Freeze.
+- Preserve exact live/source/build identity through deployment and promotion.
 
 ## Next required work
-1. Re-run CI on the documentation-advanced branch HEAD and preserve build identity.
-2. Close remaining Gate 6 rendered/evaluator checks, especially protected boundary and interaction behavior.
-3. Update TRACE project `CURRENT.yaml` with implementation repo, branch, validated build commit, CI run, PR and QA artifact.
-4. Only then proceed to Gate 6.5 Evaluation Capture / live deployment.
+1. Deploy the Gate 6 validated product to a live evaluator-accessible URL.
+2. Verify the live artifact identity against the validated source/build.
+3. Run Gate 6.5 evaluator proof path on the live product.
+4. Keep PR #1 draft until later Freeze/Promotion decision.
