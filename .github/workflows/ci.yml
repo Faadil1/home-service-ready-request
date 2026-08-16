@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main, build/blue-carbon-margin-tabs]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-rendered-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Start preview
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/preview.log 2>&1 &
+          echo $! > /tmp/preview.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173 >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/preview.log
+          exit 1
+
+      - name: Install Playwright QA runtime
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+
+      - name: Rendered QA
+        run: node qa/rendered-qa.mjs
+
+      - name: Upload rendered QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-qa
+          path: qa-artifacts/
+          if-no-files-found: warn
