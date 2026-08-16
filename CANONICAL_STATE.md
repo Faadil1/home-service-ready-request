@@ -5,9 +5,9 @@ Last synchronized: 2026-08-16
 ## Identity
 - TRACE validation case: Test #03 — conversion / consumer workflow
 - Implementation repository: `Faadil1/home-service-ready-request`
-- Build branch: `build/blue-carbon-margin-tabs`
-- PR: #1 — open, draft, not merged
-- Main: not merged
+- Source of truth: `main`
+- PR #1: closed, merged
+- Promoted merge commit: `8c45563451f3e9a671bf937d9c6a587cde417feb`
 - Live product: `https://home-service-ready-request.vercel.app`
 
 ## Frozen design contract
@@ -36,90 +36,75 @@ Last synchronized: 2026-08-16
 - JS: `/assets/index-DsBP0ZMz.js`
 - CSS: `/assets/index-dI3W3B_H.css`
 
-Commits after `8d81a9e...` add QA, evidence, documentation, dependency locking and promotion controls. Gate 7 compare confirms **no `src/` drift**.
+The user-visible product did not change after `8d81a9e...`; later commits add QA, evidence, documentation, dependency locking and promotion controls.
 
 ## Gate 6 — PASS
 - CI run: `31939110878`
 - Rendered QA artifact: `9261523786`
 - Digest: `sha256:16b0eb57728617524796441e0e11779c74a3b17c370f6a2dec00d7fc9dcb16c7`
 - Security audit: PASS — 0 vulnerabilities
-- Hazard exit, Review Edit preservation, desktop/mobile and reduced motion: PASS
 
 ## Gate 6.5 — PASS
 - Canonical URL: `https://home-service-ready-request.vercel.app`
 - Vercel deployment: `dpl_3Twe4RDNYuPZcg65RFgwM4fjNqfo`
-- Fresh Gate 7 Vercel project ID for that deployment: `prj_vmPGyKXbyXRWHJyy5JpmoednTnHk`
+- Vercel project: `prj_vmPGyKXbyXRWHJyy5JpmoednTnHk`
 - Deployment state: READY
-- Deployment method: manual Vercel connector upload from the exact validated product source; Git-linked auto-deploy is not assumed.
+- Deployment method: manual connector upload from the exact validated product source; Git-linked auto-deploy is not assumed.
 - Live evaluator run: `31939929008` — PASS
 - Evidence artifact: `9261739069`
-- Digest: `sha256:aa62e7bf9f8d83c0e6e240ccd431975acd5babe708f89f56790e596a113f3397`
-
-The Vercel project ID previously recorded at Gate 6.5 is superseded by the fresh deployment lookup performed at Gate 7. Deployment ID, canonical URL and bundle identity remain unchanged.
 
 ## Gate 6.75 — PASS
 - Narrative: `docs/DEMO_NARRATIVE_001.md`
 - Audit: `docs/DEMO_AUDIT_001.md`
 - Final evidence run: `31950856489` — PASS
-- Workflow source head: `49c307d79473d5eb88c0f396516873c2f27ff408`
 - Evidence artifact: `9264610424`
-- Digest: `sha256:ae2d054377206f4aa454024d2a66681fff05a6e95f0e6bf45ed6db6b27cfd5af`
 - Final film duration: **56.88 seconds**
 - Claim audit: PASS
 
-## Gate 7 — FREEZE PASS
+## Gate 7 — PROMOTED / POST-MERGE VERIFIED
 
-Audit: `docs/FREEZE_AUDIT_001.md`
+Freeze audit: `docs/FREEZE_AUDIT_001.md`
 
-### Reproducibility
-- `package-lock.json` committed.
-- lockfileVersion: `3`.
-- CI uses `npm ci`.
-- Node line: Node 22.
-- one-time lock generator removed after use.
+### Freeze candidate
+- frozen PR head: `dc1259c1c7e53830c1a2f4dce700f7f14546b7d6`
+- lockfileVersion: `3`
+- CI dependency install: `npm ci`
+- Node: 22
+- Playwright QA runtime: `1.60.0`
+- no product-source drift from `8d81a9e...`
+- reproducible build assets exactly match live JS/CSS
 
-### Security
-A first Gate 7 hardening pass exposed one high-severity finding introduced only after installing Playwright `1.55.0`. That pass is superseded and is not the freeze candidate.
+### Promotion
+- explicit decision: **PROMOTE**
+- PR #1 marked Ready before merge
+- merge method: merge commit
+- expected-head protection used: `dc1259c1c7e53830c1a2f4dce700f7f14546b7d6`
+- merge commit: `8c45563451f3e9a671bf937d9c6a587cde417feb`
+- PR state after merge: closed / merged / not draft
 
-Final Gate 7 QA runtime: Playwright `1.60.0`.
-Final CI audits both the locked project graph and the graph after QA runtime installation.
-
-Final freeze CI:
-- source HEAD: `b27178867153e500629ea88498494412b428ade8`
-- run: `31952506570` — **PASS**
-- locked-project audit: **0 vulnerabilities**
-- post-QA-runtime audit: **0 vulnerabilities**
+### Post-merge verification
+- CI run on merge commit: `31952950839` — **PASS**
+- locked-project security audit: PASS
+- post-QA-runtime security audit: PASS
 - build: PASS
 - rendered QA: PASS
-- artifact: `9265051471`
-- digest: `sha256:6701a059bf490b61eac8392e9bffcb36541eab7fa8ea621000d61352693250f3`
+- rendered QA artifact: `9265170293`
+- digest: `sha256:ef2d2bbecd0bc8d20a2d9f784a1592fd952202d62d88c78e9da1bbb302ba5294`
 
-The `npm ci` build reproduces the frozen product bundles exactly:
-- `/assets/index-DsBP0ZMz.js`
-- `/assets/index-dI3W3B_H.css`
-
-### No-product-drift audit
-Git compare `8d81a9e... → b271788...` contains only workflows, QA/evidence files, documentation and `package-lock.json`. No `src/`, `index.html`, `package.json`, tsconfig or Vite config changes are present.
-
-### Live recheck
+### Live identity after promotion
 - Vercel deployment `dpl_3Twe4RDNYuPZcg65RFgwM4fjNqfo`: READY
-- production target: yes
 - canonical alias: `home-service-ready-request.vercel.app`
 - HTTP status: 200
-- live JS/CSS bundle identity matches the reproducible Gate 7 build exactly
+- live JS: `/assets/index-DsBP0ZMz.js`
+- live CSS: `/assets/index-dI3W3B_H.css`
+- identity preserved: PASS
 
 ## Current TRACE position
 - Gates 0 → 4.25: PASS / frozen before implementation.
 - Gate 6: PASS.
 - Gate 6.5: PASS.
 - Gate 6.75: PASS.
-- Gate 7: **FREEZE_PASS — READY FOR PROMOTION DECISION**.
+- Gate 7: **PROMOTED — POST-MERGE VERIFIED**.
+- Current: **Gate 8 — Postmortem / Learning Promotion**.
 
-## Promotion rule
-PR #1 remains **draft and unmerged** until an explicit decision is made.
-
-Next action must be one of:
-- **PROMOTE** → mark PR #1 ready, re-read the frozen PR head, merge with expected-head protection, run post-merge CI, recheck live identity, then proceed to Gate 8 postmortem.
-- **HOLD** → keep PR #1 draft/unmerged and preserve the frozen state.
-
-No Test #03 learning is promoted into the TRACE Kernel before Gate 8 postmortem and generalizability review.
+No Test #03 learning has been promoted into the TRACE Kernel yet. Gate 8 must classify what is generalizable, project-local, tool-registry-worthy, or anecdotal before any framework change.
