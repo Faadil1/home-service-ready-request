@@ -8,6 +8,7 @@ Last synchronized: 2026-08-16
 - Build branch: `build/blue-carbon-margin-tabs`
 - Draft PR: #1
 - Main: not merged
+- Live product: `https://home-service-ready-request.vercel.app`
 
 ## Frozen design contract
 - Visual direction: **Blue Carbon**
@@ -32,46 +33,64 @@ Last synchronized: 2026-08-16
 
 The brief exposes what is still to confirm: exact scope, provider availability, appointment timing, and price/quote where applicable.
 
-## Gate 6 validated build
-- Gate 6 candidate/build HEAD: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
+## Gate 6 validated build — PASS
+- Validated source/build HEAD: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
 - CI run: `31939110878` — **PASS**
 - Rendered QA artifact: `9261523786`
 - Artifact digest: `sha256:16b0eb57728617524796441e0e11779c74a3b17c370f6a2dec00d7fc9dcb16c7`
 - Security audit: **PASS — 0 vulnerabilities**
 - Vite: `8.2.0`
-- Build: PASS
-- Desktop review / review-after-edit / received / brief: PASS
-- Mobile 390×844 review / received: PASS
-- Immediate-hazard exit: PASS
-- Review Edit Return with answer preservation: PASS
-- Reduced-motion capture: PASS
+- Hazard exit, Review Edit preservation, desktop/mobile, reduced motion: **PASS**
 
-Rendered evidence files:
-- `mobile-hazard-exit.png`
-- `desktop-review.png`
-- `desktop-review-after-edit.png`
-- `desktop-received.png`
-- `desktop-brief.png`
-- `mobile-review.png`
-- `mobile-received.png`
-- `mobile-reduced-motion.png`
+## Gate 6.5 live Evaluation Capture — PASS
 
-The Gate 6 artifact was visually reviewed after automated assertions. Margin Tabs remain readable at 390×844, desktop stays a centered consumer sheet, the hazard boundary is clear, and the Handoff Imprint does not overpower the `This is not a booking` truth boundary.
+### Deployment identity
+- Canonical URL: `https://home-service-ready-request.vercel.app`
+- Vercel project: `prj_KyhYn470J5RZo8ENLPKxyhWpBfdF`
+- Vercel deployment: `dpl_3Twe4RDNYuPZcg65RFgwM4fjNqfo`
+- Deployment state: **READY**
+- Deployment method: manual Vercel connector upload of the exact source files from validated source HEAD `8d81a9e3396de5823c64cf7d5c3df41840240c3e`; Git-linked auto-deploy is **not** assumed.
+- Gate 6 CI JS asset: `/assets/index-DsBP0ZMz.js`
+- Gate 6 CI CSS asset: `/assets/index-dI3W3B_H.css`
+- Live JS asset: `/assets/index-DsBP0ZMz.js`
+- Live CSS asset: `/assets/index-dI3W3B_H.css`
+- Live artifact identity: **PASS — exact asset names match the Gate 6 build**
 
-This canonical handoff is documentation added after the validated build, so the branch HEAD advances beyond the Gate 6 candidate without implying a different product artifact.
+### Live evaluator proof
+- Workflow: `Gate 6.5 Live Evaluation`
+- Workflow run: `31939929008` — **PASS**
+- Evaluated URL: `https://home-service-ready-request.vercel.app`
+- Evidence artifact: `9261739069`
+- Evidence digest: `sha256:aa62e7bf9f8d83c0e6e240ccd431975acd5babe708f89f56790e596a113f3397`
+- Evaluated source identity: `8d81a9e3396de5823c64cf7d5c3df41840240c3e`
+
+Live assertions passed:
+- live JS/CSS artifact identity
+- missed-contact → service-ready-brief evaluator path
+- `Request received` remains explicitly **not a booking**
+- Access Window remains **preference only / not reserved**
+- immediate-hazard boundary remains outside the ordinary flow
+- `STILL TO CONFIRM` exposes provider availability, appointment timing, scope and price/quote
+- misleading positive claims such as booking confirmed / appointment confirmed / technician assigned / guaranteed response are absent
+- mobile 390×844
+- reduced-motion state
+
+Live evidence includes desktop and mobile frames for entry, Site Context, Access Window, Review, Request Received and Service-Ready Brief, plus the mobile hazard boundary, reduced-motion capture, JSON report and a recorded production evaluator path.
 
 ## Current TRACE position
-- Design Gates 0 through 4.25: PASS/frozen before implementation.
+- Gates 0 through 4.25: PASS / frozen before implementation.
 - Gate 6 QA / Polish: **PASS**.
-- Next: **Gate 6.5 — Evaluation Capture / live artifact identity**.
+- Gate 6.5 Evaluation Capture: **PASS**.
+- Current: **Gate 6.75 — Demo Narrative / Evidence Film**.
 - PR #1 remains draft and must not be merged before Freeze/Promotion.
 
 ## Known future freeze work
 - Commit a reproducible dependency lock and use `npm ci` before Gate 7 Freeze.
-- Preserve exact live/source/build identity through deployment and promotion.
+- Preserve exact live/source/build identity through promotion.
+- Verify production again after later promotion.
 
 ## Next required work
-1. Deploy the Gate 6 validated product to a live evaluator-accessible URL.
-2. Verify the live artifact identity against the validated source/build.
-3. Run Gate 6.5 evaluator proof path on the live product.
-4. Keep PR #1 draft until later Freeze/Promotion decision.
+1. Build the Gate 6.75 evidence narrative using the validated live product only for proof moments.
+2. Keep claims within the live product boundaries.
+3. Produce evaluator-facing evidence film/capture and run claim audit.
+4. Keep PR #1 draft until Gate 7 Freeze/Promotion decision.
